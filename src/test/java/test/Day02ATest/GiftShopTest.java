@@ -4,8 +4,6 @@ import org.junit.Test;
 import software.aoc.day02.a.GiftShop;
 import test.ReadTestFile;
 
-import java.util.Arrays;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class GiftShopTest {
@@ -38,6 +36,6 @@ public class GiftShopTest {
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(GiftShop.check(ReadTestFile.using("day02-a/input.txt"))).isEqualTo(54234399924L);
+        assertThat(GiftShop.check(ReadTestFile.using("day02/input.txt"))).isEqualTo(54234399924L);
     }
 }

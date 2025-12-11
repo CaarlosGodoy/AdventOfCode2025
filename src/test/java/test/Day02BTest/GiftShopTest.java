@@ -39,6 +39,6 @@ public class GiftShopTest {
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(GiftShop.check(ReadTestFile.using("day02-b/input.txt"))).isEqualTo(70187097315L);
+        assertThat(GiftShop.check(ReadTestFile.using("day02/input.txt"))).isEqualTo(70187097315L);
     }
 }

@@ -30,14 +30,14 @@ public class DialTest {
 
     @Test
     public void given_orders_should_account_the_times_that_position_is_zero() {
-        assertThat(Dial.create().execute(orders).count()).isEqualTo(6);
         assertThat(Dial.create().add("L1").count()).isEqualTo(0);
         assertThat(Dial.create().add("L1", "R1", "R50").count()).isEqualTo(1);
-        assertThat(Dial.create().add("L51", "L500").count()).isEqualTo(0);
+        assertThat(Dial.create().add("L51", "L500").count()).isEqualTo(6);
+        assertThat(Dial.create().execute(orders).count()).isEqualTo(6);
     }
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(Dial.create().execute(ReadTestFile.using("day01-b/input.txt")).count()).isEqualTo(1139);
+        assertThat(Dial.create().execute(ReadTestFile.using("day01/input.txt")).count()).isEqualTo(6676);
     }
 }

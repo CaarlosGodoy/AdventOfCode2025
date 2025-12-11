@@ -46,19 +46,40 @@ public class Dial {
         return sum(orders.stream());
     }
 
+    private int sumPartial(int size) {
+        return sum(orders.stream().limit(size));
+    }
+
+    private static int floor_div_100(int x) {
+        // Implementación segura de la función suelo (floor) para enteros y negativos
+        int result = x / 100;
+        if (x < 0 && x % 100 != 0) {
+            result--;
+        }
+        return result;
+    }
+
+    private int checkZeros(int prevSum, int currentSum) {
+        int A = Math.min(prevSum, currentSum);
+        int B = Math.max(prevSum, currentSum);
+
+        // Usar la fórmula de intervalo cerrado [A, B]: floor(B/M) - floor((A-1)/M)
+        int count_B = floor_div_100(B);
+        int count_A_minus_1 = floor_div_100(A - 1);
+
+        return count_B - count_A_minus_1;
+    }
+
     public int count() {
-        return (int) iterate()
-                .map(this::sumPartial)
-                .filter(s -> s == 0)
-                .count();
+        return iterate()
+                .map(v -> {
+                    return checkZeros(sumPartial(v - 1), sumPartial(v));
+                })
+                .sum();
     }
 
     private IntStream iterate() {
-        return IntStream.rangeClosed(1, orders.size()).parallel();
-    }
-
-    private int sumPartial(int size) {
-        return normalize(sum(orders.stream().limit(size)));
+        return IntStream.rangeClosed(1, orders.size());
     }
 
     private static int sum(Stream<Order> orders) {

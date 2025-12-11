@@ -1,11 +1,8 @@
 package test.Day05ATest;
 
 import org.junit.Test;
-import software.aoc.day03.b.Joltage;
 import software.aoc.day05.a.Cafeteria;
 import test.ReadTestFile;
-
-import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,7 +19,7 @@ public class CafeteriaTest {
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(Cafeteria.execute(ReadTestFile.string(ReadTestFile.using("day05-a/input.txt"), "\n")))
+        assertThat(Cafeteria.execute(ReadTestFile.string(ReadTestFile.using("day05/input.txt"), "\n")))
                 .isEqualTo(640);
     }
 }

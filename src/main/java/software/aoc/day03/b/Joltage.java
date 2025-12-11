@@ -1,6 +1,7 @@
 package software.aoc.day03.b;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class Joltage {
     public static long execute(String... numbers) {
@@ -26,6 +27,6 @@ public class Joltage {
     }
 
     private static String complete(String n, String start) {
-        return n.substring(n.indexOf(start), (n.indexOf(start) + 12));
+        return "";
     }
 }

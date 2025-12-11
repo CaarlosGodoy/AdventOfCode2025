@@ -19,7 +19,7 @@ public class CafeteriaTest {
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(Cafeteria.execute(ReadTestFile.string(ReadTestFile.using("day05-b/input.txt"), "\n")))
+        assertThat(Cafeteria.execute(ReadTestFile.string(ReadTestFile.using("day05/input.txt"), "\n")))
                 .isEqualTo(640);
     }
 }

@@ -2,7 +2,6 @@ package test.Day01ATest;
 
 import org.junit.Test;
 import software.aoc.day01.a.Dial;
-import software.aoc.day02.a.GiftShop;
 import test.ReadTestFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,6 +38,6 @@ public class DialTest {
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(Dial.create().execute(ReadTestFile.using("day01-a/input.txt")).count()).isEqualTo(1139);
+        assertThat(Dial.create().execute(ReadTestFile.using("day01/input.txt")).count()).isEqualTo(1139);
     }
 }
