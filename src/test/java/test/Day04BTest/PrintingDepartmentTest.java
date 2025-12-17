@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PrintingDepartmentTest {
     @Test
     public void given_simple_test_check_result() {
-        assertThat(PrintingDepartment.execute("""
+        assertThat(software.aoc.day04.a.PrintingDepartment.execute("""
                 @@@
                 @@@
                 @@@
@@ -18,7 +18,8 @@ public class PrintingDepartmentTest {
 
     @Test
     public void given_aoc_test_check_result() {
-        assertThat(PrintingDepartment.execute("""
+        PrintingDepartment department = new PrintingDepartment();
+        assertThat(department.execute("""
                 ..@@.@@@@.
                 @@@.@.@.@@
                 @@@@@.@.@@
@@ -29,11 +30,12 @@ public class PrintingDepartmentTest {
                 @.@@@.@@@@
                 .@@@@@@@@.
                 @.@.@@@.@.
-                """.split("\n"))).isEqualTo(13L);
+                """.split("\n"))).isEqualTo(43L);
     }
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(PrintingDepartment.execute(ReadTestFile.using("day04/input.txt"))).isEqualTo(1549L);
+        PrintingDepartment department = new PrintingDepartment();
+        assertThat(department.execute(ReadTestFile.using("day04/input.txt"))).isEqualTo(8887L);
     }
 }

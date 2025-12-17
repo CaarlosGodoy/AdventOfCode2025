@@ -1,0 +1,39 @@
+package test.Day09ATest;
+
+import org.junit.Test;
+import software.aoc.day09.a.Coord;
+import software.aoc.day09.a.MovieTheater;
+import test.ReadTestFile;
+
+import static org.assertj.core.api.Assertions.assertThat;
+public class MovieTheaterTest {
+    @Test
+    public void area_test() {
+        assertThat(MovieTheater.area(new Coord(new String[]{"2", "5"}), new Coord(new String[]{"9", "7"})))
+                .isEqualTo(24);
+        assertThat(MovieTheater.area(new Coord(new String[]{"7", "1"}), new Coord(new String[]{"11", "7"})))
+                .isEqualTo(35);
+        assertThat(MovieTheater.area(new Coord(new String[]{"7", "3"}), new Coord(new String[]{"2", "3"})))
+                .isEqualTo(6);
+    }
+
+    @Test
+    public void given_multiple_test_check_result() {
+        assertThat(MovieTheater.execute("""
+                7,1
+                11,1
+                11,7
+                9,7
+                9,5
+                2,5
+                2,3
+                7,3
+                """.split("\n"))).isEqualTo(50L);
+    }
+
+    @Test
+    public void given_aoc_puzzle_check_result() {
+        assertThat(MovieTheater.execute(ReadTestFile.using("day09/input.txt")))
+                .isEqualTo(4781377701L);
+    }
+}

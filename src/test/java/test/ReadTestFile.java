@@ -10,7 +10,7 @@ public class ReadTestFile {
     public static String[] using(String file) {
         ClassLoader classLoader = ReadTestFile.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream(file)) {
-            return toReader(inputStream).lines().collect(Collectors.joining(",")).split(",");
+            return toReader(inputStream).lines().collect(Collectors.joining("<")).split("<");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

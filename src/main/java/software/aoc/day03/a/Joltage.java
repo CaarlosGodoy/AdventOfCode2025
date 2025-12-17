@@ -1,7 +1,6 @@
 package software.aoc.day03.a;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class Joltage {
     public static int execute(String... numbers) {

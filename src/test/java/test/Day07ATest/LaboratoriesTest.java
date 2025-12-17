@@ -26,12 +26,12 @@ public class LaboratoriesTest {
                 ...............
                 .^.^.^.^.^...^.
                 ...............
-                """.split("\n"))).isEqualTo(14);
+                """.split("\n"))).isEqualTo(21);
     }
 
     @Test
     public void given_aoc_puzzle_check_result() {
         assertThat(Laboratories.execute(ReadTestFile.using("day07/input.txt")))
-                .isEqualTo(8108520669952L);
+                .isEqualTo(1609);
     }
 }
