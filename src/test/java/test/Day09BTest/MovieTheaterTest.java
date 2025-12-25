@@ -1,11 +1,12 @@
-package test.Day09ATest;
+package test.Day09BTest;
 
 import org.junit.Test;
 import software.aoc.day09.Cord;
-import software.aoc.day09.a.MovieTheater;
+import software.aoc.day09.b.MovieTheater;
 import test.ReadTestFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 public class MovieTheaterTest {
     @Test
     public void area_test() {
@@ -28,12 +29,12 @@ public class MovieTheaterTest {
                 2,5
                 2,3
                 7,3
-                """.split("\n"))).isEqualTo(50L);
+                """.split("\n"))).isEqualTo(24L);
     }
 
     @Test
     public void given_aoc_puzzle_check_result() {
         assertThat(MovieTheater.execute(ReadTestFile.using("day09/input.txt")))
-                .isEqualTo(4781377701L);
+                .isEqualTo(1470616992L);
     }
 }

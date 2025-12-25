@@ -1,14 +1,14 @@
-package software.aoc.day08.a;
+package software.aoc.day08.b;
 
 import software.aoc.day08.Cable;
 import software.aoc.day08.Cord;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import java.util.List;
 
 public class Playground {
     private List<Cord> cords;
@@ -19,13 +19,40 @@ public class Playground {
         this.cables = new ArrayList<>();
     }
 
-    public long execute(String[] s, int n) {
+    public long execute(String[] s) {
         cords = coords(s);
-        cables.addAll(sortedCables(n));
-        return largestCircuits();
+        Cable lastCable = findLastConnectingCable(sortedCables());
+        return (long) lastCable.c1().x() * lastCable.c2().x();
     }
 
-    private List<Cable> sortedCables(int n) {
+    private Cable findLastConnectingCable(List<Cable> cables) {
+        List<List<Cord>> groups = groups();
+        return cables.stream()
+                .filter(cable -> tryConnection(groups, cable))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No se pueden conectar en un circuito"));
+    }
+
+    private boolean tryConnection(List<List<Cord>> groups, Cable cable) {
+        List<Cord> g1 = findGroupsHaving(groups, cable.c1());
+        List<Cord> g2 = findGroupsHaving(groups, cable.c2());
+        if (g1 != g2) {
+            g1.addAll(g2);
+            groups.remove(g2);
+            return groups.size() == 1;
+        }
+        return false;
+    }
+    private List<List<Cord>> groups() {
+        return cords.stream()
+                .map(c -> new ArrayList<>(List.of(c)))
+                .collect(Collectors.toList());
+    }
+    private List<Cord> findGroupsHaving(List<List<Cord>> groups, Cord c) {
+        return groups.stream().filter(g -> g.contains(c)).findFirst().orElseThrow();
+    }
+
+    private List<Cable> sortedCables() {
         return IntStream.range(0, cords.size())
                 .boxed()
                 .flatMap(i -> IntStream.range(i + 1, cords.size())
@@ -35,7 +62,6 @@ public class Playground {
                                 straightLineDistance(cords.get(i), cords.get(j)))
                         ))
                 .sorted(Comparator.comparing(Cable::distance))
-                .limit(n)
                 .toList();
     }
 
@@ -55,39 +81,5 @@ public class Playground {
                 Integer.parseInt(s.split(",")[1].trim()),
                 Integer.parseInt(s.split(",")[2].trim())
         );
-    }
-
-    private long largestCircuits() {
-        return makeConnections().stream()
-                .mapToLong(List::size)
-                .boxed()
-                .sorted(Comparator.reverseOrder())
-                .limit(3)
-                .reduce(1L, (a, b) -> a * b);
-    }
-
-    private List<List<Cord>> makeConnections() {
-        List<List<Cord>> groups = groups();
-        cables.forEach(cable -> connectIfPossible(groups, cable));
-        return groups;
-    }
-
-    private void connectIfPossible(List<List<Cord>> groups, Cable cable) {
-        List<Cord> g1 = findGroupsHaving(groups, cable.c1());
-        List<Cord> g2 = findGroupsHaving(groups, cable.c2());
-        if (g1 != g2) {
-            g1.addAll(g2);
-            groups.remove(g2);
-        }
-    }
-
-    private List<Cord> findGroupsHaving(List<List<Cord>> groups, Cord c) {
-        return groups.stream().filter(g -> g.contains(c)).findFirst().orElseThrow();
-    }
-
-    private List<List<Cord>> groups() {
-        return cords.stream()
-                .map(c -> new ArrayList<>(List.of(c)))
-                .collect(Collectors.toList());
     }
 }

@@ -1,7 +1,7 @@
-package test.Day08ATest;
+package test.Day08BTest;
 
 import org.junit.Test;
-import software.aoc.day08.a.Playground;
+import software.aoc.day08.b.Playground;
 import test.ReadTestFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,13 +31,13 @@ public class PlaygroundTest {
                 862,61,35
                 984,92,344
                 425,690,689
-                """.split("\n"), 10)).isEqualTo(40);
+                """.split("\n"))).isEqualTo(25272L);
     }
 
     @Test
     public void given_aoc_puzzle_check_result() {
         Playground playground = new Playground();
-        assertThat(playground.execute(ReadTestFile.using("day08/input.txt"), 1000))
-                .isEqualTo(42315L);
+        assertThat(playground.execute(ReadTestFile.using("day08/input.txt")))
+                .isEqualTo(8079278220L);
     }
 }

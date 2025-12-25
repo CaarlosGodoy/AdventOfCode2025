@@ -1,8 +1,6 @@
 package software.aoc.day07.a;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Laboratories {
     public static int execute(String[] s) {

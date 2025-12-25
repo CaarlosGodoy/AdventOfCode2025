@@ -1,13 +1,13 @@
-package software.aoc.day08.a;
+package software.aoc.day08;
 
 import java.util.Objects;
 
-public record Coord(int x, int y, int z) {
+public record Cord(int x, int y, int z) {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Coord coord = (Coord) o;
-        return x == coord.x && y == coord.y && z == coord.z;
+        Cord cord = (Cord) o;
+        return x == cord.x && y == cord.y && z == cord.z;
     }
 
     @Override

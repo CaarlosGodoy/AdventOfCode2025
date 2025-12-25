@@ -1,11 +1,12 @@
 package software.aoc.day02.a;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 public class GiftShop {
-    public static long check(String... ranges) {
-        return Arrays.stream(ranges)
+    public static long check(String[] ranges) {
+        return Arrays.stream(Arrays.stream(ranges).collect(Collectors.joining(",")).split(","))
                 .mapToLong(range -> checkInvalidIds(getIds(range)))
                 .sum();
     }
