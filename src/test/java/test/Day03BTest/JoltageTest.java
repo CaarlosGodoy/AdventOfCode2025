@@ -28,6 +28,6 @@ public class JoltageTest {
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(Joltage.execute(ReadTestFile.using("day03/input.txt"))).isEqualTo(16973);
+        assertThat(Joltage.execute(ReadTestFile.using("day03/input.txt"))).isEqualTo(168027167146027L);
     }
 }

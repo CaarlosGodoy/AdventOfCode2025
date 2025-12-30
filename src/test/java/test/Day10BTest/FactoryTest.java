@@ -28,6 +28,6 @@ public class FactoryTest {
     public void given_aoc_puzzle_check_result() {
         Factory Factory = new Factory();
         assertThat(Factory.execute(ReadTestFile.using("day10/input.txt")))
-                .isEqualTo(434L);
+                .isEqualTo(15132L);
     }
 }

@@ -4,8 +4,6 @@ import org.junit.Test;
 import software.aoc.day06.a.TrashCompactor;
 import test.ReadTestFile;
 
-import java.util.Arrays;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TrashCompactorTest {
@@ -30,6 +28,7 @@ public class TrashCompactorTest {
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(TrashCompactor.execute(ReadTestFile.using("day06/input.txt"))).isEqualTo(8108520669952L);
+        assertThat(TrashCompactor.execute(ReadTestFile.using("day06/input.txt")))
+                .isEqualTo(8108520669952L);
     }
 }

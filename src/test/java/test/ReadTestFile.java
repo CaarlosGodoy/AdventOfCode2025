@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 
 public class ReadTestFile {
     public static String[] using(String file) {
-        ClassLoader classLoader = ReadTestFile.class.getClassLoader();
-        try (InputStream inputStream = classLoader.getResourceAsStream(file)) {
+        try (InputStream inputStream = ReadTestFile.class.getClassLoader().getResourceAsStream(file)) {
             return toReader(inputStream).lines().collect(Collectors.joining("<")).split("<");
         } catch (Exception e) {
             throw new RuntimeException(e);

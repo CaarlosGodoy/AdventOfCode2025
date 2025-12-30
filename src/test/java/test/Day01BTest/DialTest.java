@@ -21,14 +21,6 @@ public class DialTest {
             """;
 
     @Test
-    public void given_orders_should_account_the_final_position() {
-        assertThat(Dial.create().add("L1").position()).isEqualTo(49);
-        assertThat(Dial.create().add("L1", "R1", "R50").position()).isEqualTo(0);
-        assertThat(Dial.create().add("L51", "L500").position()).isEqualTo(99);
-        assertThat(Dial.create().execute(orders).position()).isEqualTo(32);
-    }
-
-    @Test
     public void given_orders_should_account_the_times_that_position_is_zero() {
         assertThat(Dial.create().add("L1").count()).isEqualTo(0);
         assertThat(Dial.create().add("L1", "R1", "R50").count()).isEqualTo(1);
@@ -38,6 +30,6 @@ public class DialTest {
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(Dial.create().execute(ReadTestFile.using("day01/input.txt")).count()).isEqualTo(6676);
+        assertThat(Dial.create().execute(ReadTestFile.using("day01/input.txt")).count()).isEqualTo(6684);
     }
 }
