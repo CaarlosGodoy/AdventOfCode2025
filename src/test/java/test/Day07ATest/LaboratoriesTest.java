@@ -1,7 +1,7 @@
 package test.Day07ATest;
 
 import org.junit.Test;
-import software.aoc.day07.a.Laboratories;
+import software.aoc.day07.Laboratories;
 import test.ReadTestFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LaboratoriesTest {
     @Test
     public void given_multiple_test_check_result() {
-        assertThat(Laboratories.execute("""
+        assertThat(Laboratories.executeA("""
                 .......S.......
                 ...............
                 .......^.......
@@ -31,7 +31,7 @@ public class LaboratoriesTest {
 
     @Test
     public void given_aoc_puzzle_check_result() {
-        assertThat(Laboratories.execute(ReadTestFile.using("day07/input.txt")))
+        assertThat(Laboratories.executeA(ReadTestFile.using("day07/input.txt")))
                 .isEqualTo(1609);
     }
 }

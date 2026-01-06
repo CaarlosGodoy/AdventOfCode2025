@@ -24,7 +24,7 @@ public class TreeFarm {
     private static int solve(String dims, List<List<List<String>>> rotations) {
         if (!isPosible(dims, rotations)) return 0;
         if (fitsWithoutOrder(dims, rotations)) return 1;
-        return 2;
+        return 0;
     }
 
     private static boolean isPosible(String dims, List<List<List<String>>> rotations) {
