@@ -12,17 +12,15 @@ public class Laboratories {
 
     private static long solve(String[] s, int[] ballArray) {
         return IntStream.rangeClosed(0, s.length - 2)
-                .mapToLong(i -> {
-                    return IntStream.rangeClosed(0, s[0].length() - 1)
-                            .filter(j -> ballArray[j] == 1)
-                            .filter(j -> {
-                                if (s[i + 1].charAt(j) != '^') return false;
-                                modifyArray(j, ballArray);
-                                return true;
-                            })
-                            .count();
-                })
-                .sum();
+                .mapToLong(i -> IntStream.rangeClosed(0, s[0].length() - 1)
+                        .filter(j -> ballArray[j] == 1)
+                        .filter(j -> {
+                            if (s[i + 1].charAt(j) != '^') return false;
+                            modifyArray(j, ballArray);
+                            return true;
+                        })
+                        .count()
+                ).sum();
     }
 
     private static int[] ballArray(String[] s) {

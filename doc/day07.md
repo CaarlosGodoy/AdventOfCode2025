@@ -42,7 +42,8 @@ En la segunda parte, la bola ya no se divide en dos al llegar a un '^', sino que
       |^.^.^.^.^...^.           .^.^.^|^.^...^.             .^.^.^|^.^...^.
       |..............           ......|........             ......|........
 
-    
+
+En este caso, la solución sería 40.
 
 ### RESOLUCIÓN
 #### Parte1

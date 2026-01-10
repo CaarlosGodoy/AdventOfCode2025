@@ -12,52 +12,77 @@ public class Factory {
         return Arrays.stream(s)
                 .mapToLong(l -> {
                     mem.clear();
-                    List<Long> goal = joltageArray(l.split(" ")[l.split(" ").length - 1]);
-                    return solve(goal, generatePatterns(btnsList(l.split(" ")), goal.size()));
+                    return solve(
+                            joltageArray(getJoltage(l)),
+                            generatePatterns(btnsList(l.split(" ")), joltageArray(getJoltage(l)).size())
+                    );
                 }).sum();
     }
 
     private long solve(List<Long> goal, Map<List<Long>, Map<List<Long>, Long>> patterns) {
         if (goal.stream().allMatch(i -> i == 0)) return 0L;
         if (mem.containsKey(goal)) return mem.get(goal);
-
-        List<Long> parity = goal.stream().map(i -> i % 2).toList();
-
-        long res = patterns.getOrDefault(parity, Map.of()).entrySet().stream()
+        mem.put(goal, value(patterns, goal));
+        return mem.get(goal);
+    }
+    private Long value(Map<List<Long>, Map<List<Long>, Long>> patterns, List<Long> goal) {
+        return getBtnsFollowing(patterns, parity(goal))
                 .filter(e -> IntStream.range(0, goal.size()).allMatch(i -> e.getKey().get(i) <= goal.get(i)))
-                .mapToLong(e -> e.getValue() + 2 * solve(IntStream.range(0, goal.size())
-                        .mapToObj(i -> (goal.get(i) - e.getKey().get(i)) / 2).toList(), patterns))
+                .mapToLong(e -> e.getValue() + 2 * solve(newJoltageArray(e, goal), patterns))
                 .min()
                 .orElse(1000000L);
-
-        mem.put(goal, res);
-        return res;
+    }
+    private List<Long> newJoltageArray(Map.Entry<List<Long>, Long> entry, List<Long> goal) {
+        return IntStream.range(0, goal.size())
+                .mapToObj(i -> (goal.get(i) - entry.getKey().get(i)) / 2)
+                .toList();
+    }
+    private Stream<Map.Entry<List<Long>, Long>> getBtnsFollowing(Map<List<Long>, Map<List<Long>, Long>> patterns, List<Long> parity) {
+        return patterns.getOrDefault(parity, Map.of()).entrySet().stream();
+    }
+    private List<Long> parity(List<Long> goal) {
+        return goal.stream().map(i1 -> i1 % 2).toList();
     }
 
     private Map<List<Long>, Map<List<Long>, Long>> generatePatterns(List<List<Long>> btns, int size) {
-        return IntStream.range(0, 1 << btns.size())
+        return IntStream.range(0, combinations(btns.size()))
                 .boxed()
                 .collect(Collectors.groupingBy(
-                        m -> IntStream.range(0, size)
-                                .mapToLong(idx -> IntStream.range(0, btns.size())
-                                        .filter(b -> (m & (1 << b)) != 0)
-                                        .mapToLong(b -> btns.get(b).get(idx)).sum())
-                                .mapToObj(v -> v % 2).toList(),
+                        m -> getParity(m, btns, size),
                         Collectors.toMap(
-                                m -> IntStream.range(0, size)
-                                        .mapToObj(idx -> IntStream.range(0, btns.size())
-                                                .filter(b -> (m & (1 << b)) != 0)
-                                                .mapToLong(b -> btns.get(b).get(idx)).sum()).toList(),
-                                m -> (long) Integer.bitCount(m),
+                                m -> getVoltages(m, btns, size),
+                                m -> countActiveButtons(m, btns.size()),
                                 Math::min
                         )
                 ));
     }
+    private long countActiveButtons(int m, int numBtns) {
+        return IntStream.range(0, numBtns)
+                .filter(b -> isButtonOn(m, b))
+                .count();
+    }
+    private boolean isButtonOn(int m, int b) {
+        return (m / (int) Math.pow(2, b)) % 2 != 0;
+    }
+    private List<Long> getVoltages(int m, List<List<Long>> btns, int size) {
+        return IntStream.range(0, size)
+                .mapToObj(idx -> IntStream.range(0, btns.size())
+                        .filter(b -> isButtonOn(m, b))
+                        .mapToLong(b -> btns.get(b).get(idx)).sum())
+                .toList();
+    }
+    private List<Long> getParity(int m, List<List<Long>> btns, int size) {
+        return getVoltages(m, btns, size).stream()
+                .map(v -> v % 2)
+                .toList();
+    }
+    private int combinations(int size) { return (int) Math.pow(2, size); }
 
     private List<Long> joltageArray(String s) {
         return Stream.of(s.substring(1, s.length() - 1).split(","))
                 .map(String::trim).map(Long::parseLong).toList();
     }
+    private String getJoltage(String l) { return l.split(" ")[l.split(" ").length - 1]; }
 
     private List<List<Long>> btnsList(String[] s) {
         return Arrays.stream(s, 1, s.length)

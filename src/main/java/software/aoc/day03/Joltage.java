@@ -11,12 +11,10 @@ public class Joltage {
     }
 
     private static long findLargestComb(String num, int n) {
-        return Stream.iterate(nextString("", num), s -> {
-                    return nextString(
-                            s[0] + findLargest(getString(s, n-1)),
-                            s[1].substring(s[1].indexOf(findLargest(getString(s, n-1))) + 1)
-                    );
-                })
+        return Stream.iterate(nextString("", num), s -> nextString(
+                s[0] + findLargest(getString(s, n-1)),
+                s[1].substring(s[1].indexOf(findLargest(getString(s, n-1))) + 1)
+        ))
                 .filter(s -> s[0].length() == n)
                 .findFirst()
                 .map(s -> Long.parseLong(s[0]))

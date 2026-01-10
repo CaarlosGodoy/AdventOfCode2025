@@ -26,13 +26,11 @@ public class Factory {
         if (index == btns.size()) return 1000000L;
         if (mem.containsKey(key)) return mem.get(key);
 
-        long res = Math.min(
+        mem.put(key, Math.min(
                 skipBtn(goal, btns, index + 1, current),
-                takeBtn(goal, btns, index + 1, current)
+                takeBtn(goal, btns, index + 1, current))
         );
-
-        mem.put(key, res);
-        return res;
+        return mem.get(key);
     }
 
     private long skipBtn(List<Long> goal, List<List<Long>> btns, int index, List<Long> current) {
@@ -50,7 +48,7 @@ public class Factory {
     }
 
     private List<Long> initial(int size) {
-        return LongStream.range(0, size).map(i -> 0L).boxed().toList();
+        return LongStream.range(0, size).map(_ -> 0L).boxed().toList();
     }
 
     private List<Long> lightArray(String s) {
@@ -67,12 +65,11 @@ public class Factory {
     }
     private List<Long> toBinaryArray(String[] s, int size) {
         return IntStream.range(0, size)
-                .mapToObj(i -> {
-                    return Arrays.stream(s)
-                            .map(String::trim)
-                            .map(Long::parseLong)
-                            .toList()
-                            .contains((long) i) ? 1L : 0L;
-                }).toList();
+                .mapToObj(i -> Arrays.stream(s)
+                        .map(String::trim)
+                        .map(Long::parseLong)
+                        .toList()
+                        .contains((long) i) ? 1L : 0L)
+                .toList();
     }
 }

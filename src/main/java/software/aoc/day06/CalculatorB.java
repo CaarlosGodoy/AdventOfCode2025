@@ -8,12 +8,9 @@ class CalculatorB implements Calculator {
     @Override
     public long calculate(String[] s) {
         return IntStream.range(0, ops(s).length)
-                .mapToLong(colIdx -> {
-                    return getCommand(ops(s)[colIdx]).execute(
-                            Arrays.stream(formatted(extractRaw(s, colIdx, ops(s))))
-                                    .mapToLong(Long::parseLong)
-                    );
-                }).sum();
+                .mapToLong(colIdx -> getCommand(ops(s)[colIdx]).execute(
+                        Arrays.stream(formatted(extractRaw(s, colIdx, ops(s)))).mapToLong(Long::parseLong)
+                )).sum();
     }
     private String [] ops(String[] s) {return s[s.length - 1].trim().split("\\s+");}
 
